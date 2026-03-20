@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>CRITICAL SYSTEM FAILURE</title>
+    <style>
+        body { 
+            background-color: #000; 
+            color: #f00; 
+            text-align: center; 
+            font-family: 'Courier New', Courier, monospace; 
+            padding-top: 50px;
+            overflow: hidden;
+            background-image: radial-gradient(circle, #1a0000 0%, #000 70%);
+        }
+        .glitch {
+            font-size: 70px;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                         0.025em 0.04em 0 #fffc00;
+            animation: glitch 725ms infinite;
+        }
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00; }
+            14% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00; }
+            15% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.025em 0 #fc00ff, -0.05em -0.05em 0 #fffc00; }
+            49% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.025em 0 #fc00ff, -0.05em -0.05em 0 #fffc00; }
+            50% { text-shadow: 0.025em 0.05em 0 #00fffc, 0.05em 0 0 #fc00ff, 0 -0.05em 0 #fffc00; }
+            99% { text-shadow: 0.025em 0.05em 0 #00fffc, 0.05em 0 0 #fc00ff, 0 -0.05em 0 #fffc00; }
+            100% { text-shadow: -0.025em 0 0 #00fffc, -0.025em -0.025em 0 #fc00ff, -0.025em -0.05em 0 #fffc00; }
+        }
+        .warning-box {
+            border: 2px solid red;
+            display: inline-block;
+            padding: 20px;
+            margin-top: 20px;
+            background: rgba(255, 0, 0, 0.1);
+        }
+        #countdown { font-size: 40px; color: white; }
+        .data-stream { font-size: 12px; color: #0f0; opacity: 0.5; margin-top: 30px; }
+    </style>
+</head>
+<body onclick="playAlarm()">
+    <h1 class="glitch">SYSTEM HACKED</h1>
+    <div class="warning-box">
+        <p>تم اكتشاف محاولة وصول غير مصرح بها!</p>
+        <p>جاري مسح الصور والملفات الشخصية من جهازك...</p>
+        <div id="countdown">10</div>
+        <p style="color: yellow;">اضغط في أي مكان لإيقاف العملية (وهمي)</p>
+    </div>
+
+    <div class="data-stream">
+        <p id="logs">Connecting to server... [OK]<br>Accessing Gallery... [DONE]<br>Downloading Databases... [45%]</p>
+    </div>
+
+    <audio id="alarm" loop>
+        <source src="https://www.soundjay.com/buttons/beep-01a.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // عداد تنازلي مرعب
+        let count = 10;
+        const timer = setInterval(() => {
+            count--;
+            document.getElementById('countdown').innerText = count;
+            if (count <= 0) {
+                clearInterval(timer);
+                document.getElementById('countdown').innerText = "FATAL ERROR";
+            }
+        }, 1000);
+
+        // وظيفة تشغيل الصوت عند أول لمسة للشاشة
+        function playAlarm() {
+            document.getElementById('alarm').play();
+            alert("⚠️ خطأ في النظام: لا يمكن التراجع الآن!");
+        }
+
+        // نصوص وهمية تظهر كأنها أوامر هكر
+        setInterval(() => {
+            const logs = document.getElementById('logs');
+            logs.innerHTML += "<br>Deleting: DCIM/Camera/IMG_" + Math.floor(Math.random()*9000) + ".jpg...";
+        }, 500);
+    </script>
+</body>
+</html>
+
